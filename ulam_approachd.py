@@ -11,80 +11,85 @@ from PIL import Image, ImageDraw
 #lenprimes = len(primes)
 #print(lenprimes)
 
-#quadratgrosse
-
+"""
+def dir_R(x,y):
+	
+def dir_T(x,y):
+	
+def dir_L(x,y):
+	
+def dir_D(x,y):
+"""
+	
 #black = one to the right
 #white = one to the top
 #blue  = one to the left
 #yellow= one down
+#size of the square a x a
+#quadratgrosse
+q_size = 1024
+#median
+x = int(round(q_size / 2))
+y = int(round(q_size / 2))
 
-#q_size = 1024
-
-def ulam(output_path):
-	#median
-	x = int(round(q_size / 2))
-	y = int(round(q_size / 2))
-	
-	#erzeuge quadrat mit der kantenlaenge "q_size" und der hintergrundfarbe braun
-	image = Image.new("RGB", (q_size ,q_size), "brown")
-	#yeichnet wohl das bild
-	draw = ImageDraw.Draw(image)
-	#intitalise counter to one which means odd
-	goin_up = 1
-	for i in range(100):
-		#draw.point((x,y), fill = "black")
+#erzeuge quadrat mit der kantenlaenge "q_size" und der hintergrundfarbe braun
+image = Image.new("RGB", (q_size ,q_size), "brown")
+#zeichnet wohl das bild
+draw = ImageDraw.Draw(image)
+#start at 1 becus it needs be odd at first
+for i in range(1,100):
+	#draw.point((x,y), fill = "black")
 #check if goin up ( edge) is odd, starting at the median and add one to 
 #edge x and y moving away from median in right and top direction
-		if goin_up % 2 != 0:
-			#this is to remember the original x
-			x_start_corner = x
-			#i calculate 1 to x > to the right direction
-			x = x + goin_up
-			#and remember the end edge x position after adding 1 to x
-			x_end_corner = x
-			#finally plot x and y > notice y didnt change
-			draw.point((x,y), fill = "black")
+	if i % 2 != 0:
+		#this is to remember the original x
+		x_start_corner = x
+		#i calculate 1 to x > to the right direction
+		x = x + i
+		#and remember the end edge x position after adding 1 to x
+		x_end_corner = x
+		#finally plot x and y > notice y didnt change
+		draw.point((x,y), fill = "black")
 #debuglines
-			#x_line_iterations = abs(x_start_corner - x_end_corner)
-			#print("x_odd: ", x_line_iterations)
-			
-			#this is to remember the original y
-			y_start_corner = y
-			#i calculate 1 to y > to the top direction
-			y = y + goin_up
-			#remember y after operation
-			y_end_corner = y
-			#plot x, notice x dosnt change
-			draw.point((x,y), fill = "white")
+		#x_line_iterations = abs(x_start_corner - x_end_corner)
+		#print("x_odd: ", x_line_iterations)
+		
+		#this is to remember the original y
+		y_start_corner = y
+		#i calculate 1 to y > to the top direction
+		y = y + i
+		#remember y after operation
+		y_end_corner = y
+		#plot x, notice x dosnt change
+		draw.point((x,y), fill = "white")	
+		#track lines from to edge	
 #debuglines
-			#y_line_iterations = abs(y_start_corner - y_end_corner)
-			#print("y_odd: ", y_line_iterations)
+		#y_line_iterations = abs(y_start_corner - y_end_corner)
+		#print("y_odd: ", y_line_iterations)
 #if edge is even we now plot in left and down direction this means we 
 #subtract regarding to the coordinate system
-		else:
-			#remember former x
-			x_start_corner = x
-			x = x - goin_up
-			x_end_corner = x
-			draw.point((x,y), fill = "blue")
+	else:
+		#remember former x
+		x_start_corner = x
+		x = x - i
+		x_end_corner = x
+		draw.point((x,y), fill = "blue")
 #debuglines
-			#x_line_iterations = abs(x_start_corner - x_end_corner)
-			#print("x_even: ", x_line_iterations)
-			y_start_corner = y
-			y = y - goin_up
-			y_end_corner = y
-			draw.point((x,y), fill = "yellow")
+		#x_line_iterations = abs(x_start_corner - x_end_corner)
+		#print("x_even: ", x_line_iterations)
+		y_start_corner = y
+		y = y - i
+		y_end_corner = y
+		draw.point((x,y), fill = "yellow")
+		
 #debuglines
-			#y_line_iterations = abs(y_start_corner - y_end_corner)
-			#print("y_even: ", y_line_iterations)
-		#after the loop we need to increment goin_up by 1 to prepare 
-		#for the next iteration	
-		goin_up = goin_up + 1
+		#y_line_iterations = abs(y_start_corner - y_end_corner)
+		#print("y_even: ", y_line_iterations)
+	#after the loop we need to increment i by 1 to prepare 
+	#for the next iteration	
+	#track lines from edge to another
 
-	
-	
-	image.save(output_path)
 
-	
-if __name__ == "__main__":
-	ulam("ulam.png")
+
+image.save("ulam.png")
+
